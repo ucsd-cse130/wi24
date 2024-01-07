@@ -17,7 +17,7 @@ but no more than *four late days* per assignment.
 
 | **HW-link**                                      | **Name**                |  **Deadline (23:59:59pm)** |
 |:-------------------------------------------------|:------------------------|:---------------------------|
-| [HW #0]                                          | Lambda Calculus         | Wed 1/24                   |
+| [HW #0](https://classroom.github.com/a/_34d4Uv5) | Lambda Calculus         | Wed 1/24                   |
 
 <!--
 | [HW #1]                                          | Introduction to Haskell | Fri 2/2                    |
