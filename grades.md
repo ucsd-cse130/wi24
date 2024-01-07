@@ -8,7 +8,7 @@ headerImg: beach.jpg
 Involves responding to 75% of the questions during lectures
 with the **clicker**.
 
-### Homework Assignments (30%)
+### Homework Assignments (25%)
 
 There will be *six* [programming assignments](assignments.html),
 assigned every one or two weeks.
