@@ -412,8 +412,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 - 25% Programming Assignments
 - 35% Two Midterm **Tu 1/30** and **Thu 2/22**
 - 35% Final       **Tu 3/19**
-- 05% Piazza Extra Credit
-  - To **top 20** best participants
+- 05% Piazza Extra Credit (**top 20** best participants)
 
 <br>
 <br>
@@ -428,7 +427,8 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 - Released [online](assignments.html)
 - At least a week before due date
-- Via github classroom
+- Via github classroom+codespaces 
+- Link your github account [here](https://forms.gle/hiaUVDdkEBTHhPBR6)
 
 **Six late days**
 
