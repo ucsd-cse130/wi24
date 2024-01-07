@@ -272,7 +272,7 @@ etc.
 
 **Many thanks to for taking over in weeks 1-2!**
 
-**[Prof. Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova)
+[Prof. Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova)
 
 <br>
 <br>
