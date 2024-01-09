@@ -272,7 +272,7 @@ etc.
 
 **Many thanks to for taking over in weeks 1-2!**
 
-[Prof. Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova)
+**[Prof. Nadia Polikarpova](https://cseweb.ucsd.edu/~npolikarpova)
 
 <br>
 <br>
@@ -317,7 +317,7 @@ etc.
 
 **Logic Programming**
 
-- Prolog (2 weeks, maybe)
+- Prolog (2 weeks, maybe, but doubtful!)
 
 <br>
 <br>
@@ -412,7 +412,8 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 - 25% Programming Assignments
 - 35% Two Midterm **Tu 1/30** and **Thu 2/22**
 - 35% Final       **Tu 3/19**
-- 05% Piazza Extra Credit (**top 20** best participants)
+- 05% Piazza Extra Credit
+  - To **top 20** best participants
 
 <br>
 <br>
@@ -427,8 +428,7 @@ sort (x:xs) = sort ls ++ [x] ++ sort rs
 
 - Released [online](assignments.html)
 - At least a week before due date
-- Via github classroom+codespaces 
-- Link your github account [here](https://forms.gle/hiaUVDdkEBTHhPBR6)
+- Via github classroom
 
 **Six late days**
 
