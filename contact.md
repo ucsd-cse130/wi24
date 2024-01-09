@@ -9,13 +9,26 @@ headerImg: world-map.jpg
 - **Section:**           Fr    5:00-3:50p  at Pepper Canyon 109
 - **Announcements:**     Posted on Piazza. Please check often!
 
-## Instructor
+## Staff and Office Hours
 
-- [Ranjit Jhala](https://ranjitjhala.github.io)
+|              |  **Staff**                                     | **Office Hours**                     |
+|:------------:|:-----------------------------------------------|:-------------------------------------|
+| *Instructor* | [Ranjit Jhala](https://ranjitjhala.github.io)  | Tu 2:00-3:00pm, LAB                  |
+| *TA*         | [Matt Kolosick](mailto:mkolosic@ucsd.edu)      | Th 9:00-11:00a, [zoom](https://ucsd.zoom.us/j/2499498988) |                                    |
+| *TA*         | [Cole Kurashige](mailto:ckurashige@ucsd.edu)   | Tu-Th 2:00-3:00pm, CSE 3109         |
+| *TA*         | [George Sakkas](mailto:gsakkas@ucsd.edu)       | Wed 1:15-3:15 pm, CSE 2217           |                                   |
+| *Tutor*      | [Rana Lulla](mailto:rlulla@ucsd.edu)           | Tu-Th 11:00-12:00pm, LAB            |
+| *Tutor*      | [Matthew Peng](mailto:mapeng@ucsd.edu)         | Fri 1:00-3:00pm, LAB                |
+| *Tutor*      | [Melody Ruth](mailto:maruth@ucsd.edu)          | Mon 11:00-1:00pm, LAB                |
 
+<!--
+
+- Rana  11am-12pm on Tuesday/Thursday
+- Matthew 1pm-3pm on Fridays
+- Melody 11am-1pm on Mondays
 ## Teaching Assistants
 
-- [Matt Kolosick](mailto:mkolosick@ucsd.edu)
+- [Matt Kolosick](mailto:mkolosic@ucsd.edu)
 - [Cole Kurashige](mailto:ckurashige@ucsd.edu)
 - [George Sakkas](mailto:gsakkas@ucsd.edu)
 
@@ -24,3 +37,20 @@ headerImg: world-map.jpg
 - [Rana Lulla](mailto:rlulla@ucsd.edu)
 - [Matthew Peng](mailto:mapeng@ucsd.edu)
 - [Melody Ruth](mailto:maruth@ucsd.edu)
+
+## Instructor
+
+- [Ranjit Jhala](https://ranjitjhala.github.io)
+
+## Teaching Assistants
+
+- [Matt Kolosick](mailto:mkolosic@ucsd.edu)
+- [Cole Kurashige](mailto:ckurashige@ucsd.edu)
+- [George Sakkas](mailto:gsakkas@ucsd.edu)
+
+## Tutors
+
+- [Rana Lulla](mailto:rlulla@ucsd.edu)
+- [Matthew Peng](mailto:mapeng@ucsd.edu)
+- [Melody Ruth](mailto:maruth@ucsd.edu)
+-->
