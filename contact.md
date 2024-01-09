@@ -6,7 +6,7 @@ headerImg: world-map.jpg
 ## Course Details
 
 - **Lectures:**          Tu-Th 12:30-1:50p at Pepper Canyon 106
-- **Section:**           Fr    5:00-3:50p  at Pepper Canyon 109
+- **Section:**           Fr    3:00-3:50p  at Pepper Canyon 109
 - **Announcements:**     Posted on Piazza. Please check often!
 
 ## Instructor
@@ -15,7 +15,7 @@ headerImg: world-map.jpg
 
 ## Teaching Assistants
 
-- [Matt Kolosick](mailto:mkolosick@ucsd.edu)
+- [Matt Kolosick](mailto:mkolosic@ucsd.edu)
 - [Cole Kurashige](mailto:ckurashige@ucsd.edu)
 - [George Sakkas](mailto:gsakkas@ucsd.edu)
 
