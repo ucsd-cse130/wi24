@@ -16,7 +16,7 @@ headerImg: world-map.jpg
 | *Instructor* | [Ranjit Jhala](https://ranjitjhala.github.io)  | Tu 2:00-3:00pm, LAB                  |
 | *TA*         | [Matt Kolosick](mailto:mkolosic@ucsd.edu)      | Th 9:00-11:00a, [zoom](https://ucsd.zoom.us/j/2499498988) |                                    |
 | *TA*         | [Cole Kurashige](mailto:ckurashige@ucsd.edu)   | Tu-Th 2:00-3:00pm, CSE 3109         |
-| *TA*         | [George Sakkas](mailto:gsakkas@ucsd.edu)       | Wed 1:15-3:15 pm, CSE 2217           |                                   |
+| *TA*         | [George Sakkas](mailto:gsakkas@ucsd.edu)       | Wed 1:00-2:00pm, CSE 2217 & Fri 1:00-2:00pm, CSE 4217 |                                   |
 | *Tutor*      | [Rana Lulla](mailto:rlulla@ucsd.edu)           | Tu-Th 11:00-12:00pm, LAB            |
 | *Tutor*      | [Matthew Peng](mailto:mapeng@ucsd.edu)         | Fri 1:00-3:00pm, LAB                |
 | *Tutor*      | [Melody Ruth](mailto:maruth@ucsd.edu)          | Mon 11:00-1:00pm, LAB                |
