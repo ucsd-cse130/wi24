@@ -1405,6 +1405,7 @@ instead of                |  we write
 <br>
 <br>
 <br>
+
 ## $\lambda$-calculus: Booleans
 
 <br>
