@@ -77,15 +77,15 @@ match "lectures/*"    $ crunchWithCtxCustom "lecture" postCtx
 
 ## New Class Checklist
 
-- [x] site.hs
-- [x] index.md
-- [x] links.md
-- [x] contact.md
-- [x] lectures.md
-- [x] calendar.md
-- [x] grades.md
-- [x] assignments.md
-- [x] piazza
+- [+] site.hs
+- [+] index.md
+- [+] links.md
+- [+] contact.md
+- [+] lectures.md
+- [+] calendar.md
+- [+] grades.md
+- [+] assignments.md
+- [+] piazza
 
 - [ ] canvas
 - [ ] github registration form

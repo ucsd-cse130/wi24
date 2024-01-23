@@ -8,11 +8,11 @@ The live-edited code for each lecture can be found [here][code].
 | **Date**   | **Topic**                  | **Notes**                 |
 |:----------:|:---------------------------|:--------------------------|
 | 1/9        | Hello, World!              | [html][lec0]              |
-| 1/11       | The Lambda Calculus        | [html][lec1] [pdf][pdf1]  |
+| 1/11       | The Lambda Calculus        | [html][lec1]              |
 | 1/13       | contd.                     |                           |
 | 1/15       | contd.                     |                           |
-| 1/30       | **Midterm I**              |                           |
-| 2/22       | **Midterm II**             |                           |
+| 1/30       | **Midterm I**              |                           | 
+| 2/22       | **Midterm II**             |                           | 
 | 3/19       | **Final**                  |                           |
 
 
