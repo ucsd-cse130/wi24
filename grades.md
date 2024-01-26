@@ -17,7 +17,10 @@ assigned every one or two weeks.
 
 There will be **two** closed-book, pencil-and-paper midterm exams,
 each worth 17.5% of the grade -- to be held during lecture on
-on **Tu 1/30** and **Th 2/22**.
+on **Tu 1/30** and **Th 2/22**. 
+
+**Cheat Sheet** You may bring a "cheat sheet" comprising a single 
+letter-sized sheet of paper (you can use both sides if you wish.)
 
 ### Final (35%)
 

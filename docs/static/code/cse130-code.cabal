@@ -1,18 +1,12 @@
-cabal-version: 1.12
+cabal-version: 2.4
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
---
--- see: https://github.com/sol/hpack
---
--- hash: ae32a1be1aae20589c6fe444c2a63e4b62a69ccf82ac749602b0688bee9681b4
-
-name:           cse130-code
+name:           cse230-code
 version:        0.1.0.0
-homepage:       https://github.com/ucsd-cse130/wi21#readme
-bug-reports:    https://github.com/ucsd-cse130/wi21/issues
+homepage:       https://github.com/ucsd-cse230/fa23#readme
+bug-reports:    https://github.com/ucsd-cse230/fa23/issues
 author:         Ranjit Jhala
 maintainer:     jhala@cs.ucsd.edu
-copyright:      2020 Ranjit Jhala
+copyright:      2023 Ranjit Jhala
 license:        MIT
 build-type:     Simple
 extra-source-files:
@@ -20,22 +14,35 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/ucsd-cse130/wi21
+  location: https://github.com/ucsd-cse230/fa23
 
 library
   other-modules:
-      Paths_cse130_code
-  ghc-options:      -Wall -fwarn-tabs
- 
+      Lec_1_25_24
+
   hs-source-dirs:
       src
   build-depends:
-      QuickCheck
-    , base >=4.7 && <5
+      HTTP
+    , QuickCheck
+    , base >=4.9.1.0 && <5
+    , bytestring
     , containers
     , directory
     , filepath
     , mtl
+    , network-uri
     , process
+    , random
+    , stm
+    , time
     , unordered-containers
+    , vector
+    , text
   default-language: Haskell2010
+  ghc-options:
+    -Wall
+    -O2
+    -Werror
+    -Wno-type-defaults
+    -fno-warn-missing-signatures
