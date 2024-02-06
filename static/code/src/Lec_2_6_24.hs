@@ -1,387 +1,220 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use list literal" #-}
+{-# HLINT ignore "Redundant bracket" #-}
 module Lec_2_6_24 where
 
-ex0 :: Int
-ex0 = 10 + 10 + 1
+import Prelude hiding (length)
+import Text.Printf (printf)
 
-ex1 :: Double
-ex1 = 10.0 + 10.0 + 1.0
+-- >>> clone 3 "dog"
+-- ["dog","dog","dog"]
 
-ex2 :: Char
-ex2 = 'c'
-
-ex3 :: Bool
-ex3 = True
-
-ex4 :: Bool
-ex4 = False
-
--- >>> isPos (12 - 100)
--- False
-
--- >>> isPos 1000
--- True
-
-
--- isPos = \n -> n > 0
-isPos :: Int -> Bool
-isPos n = n > 0
-
-ex10 :: Bool
-ex10 = isPos 10
-
--- >>> (((pat 10) 20) 30)
-
-pat :: Int -> Int -> Int -> Int
-pat x y z  =  x * (y + z)
---
--- pat = \x y z -> x * ( y + z )
--- pat = \x -> \y -> \z -> x * ( y + z )
-
-frog = pat 10 20
-
--- >>> frog 30
--- 500
-
-
-{-
-frog
-==> pat 10 20
-==> (((\x -> \y -> \z -> x * ( y + z )) 10) 20)
-==> \z -> 10 * (20 + z)
-
-frog 30
-==> (\z -> 10 * (20 + z)) 30
-==> 10 * (20 + 30)
-==> 500
-
-frog 30
-==> (pat 10 20) 30
-==> 10 * (20 + 30)
-
-
-
-frog
-==>
-
-
--}
-
-ite :: Bool -> t -> t -> t
-ite b vThen vElse = if b then vThen else vElse
-
-ifThen :: (Num t) => Bool -> t -> t
-ifThen b vThen = if b then vThen else 0
-
--- >>> 4 + 5.1
--- 9.1
-
-
--- >>> 5 + 6
+-- >>> bob 10
 -- 11
-
--- >>> 5.4 + 6.43
--- 11.83
-
-{-
-
-
-
-
-
-A: Yes, it typechecks
-B: Noooo...
--}
-
--- takes two Int  and returns their maximum
-myMax :: Int -> Int -> Int
-myMax x y = ite (x>y) x y
-
-
-
-
-
-
--- >>> bob
--- 500
-
-bob :: Int
-bob = pat 10 20 30
-
-{-
-pat 10 20 30
-==> 10 * (20 + 30)
-==> 10 * 50
-==> 500
-
-
-
-
--}
-
--- >>> dec 100
--- 9
-
-dec :: Int -> Int
-dec n = if isZ n then 0 else fst (loop n shift (pair 0 0))
-
-shift = \p -> pair (snd p) (inc (snd p))
-
-isZ = \n -> n == 0
-pair x y = (x, y)
-loop :: Int -> (a -> a) -> a -> a
-loop 0 _ x = x
-loop n f x = loop (n-1) f (f x)
-
-
-
-
--- add2 :: Int -> Int -> Int
---add2 x y = x + y + 10
---add2     = \x y -> x + y + 10
-
-{-
-quiz :: Int
-quiz = if 5 > 10 then ex0 else ex4
-
-
-ex0 :: Int
-ex0 = 10 + 10 + 1
-
-A. Int
-B. Bool
-C. Compiler YELLS : TYPE ERROR
--}
-
-
-{-
-
-var_1 :: type_1
-var_1 = expr_1
-
-var_2 :: type_2
-var_2 = expr_2
-
-
--}
-
-
--- >>> inc 10
--- 11
-
-
-
-
-
-
-
-inc :: Int -> Int
-inc x = x + 1
-
-{-
-
-def sum(n):
-    if n == 0:
-        return 0
-    else:
-        return n + sum(n - 1)
-
-let sum = \n -> ITE (ISZERO n) ZERO (ADD n (sum (DECR n))
-
-
-
-n f x
-
-def loop(n, f, x):
-  res = x
-  for i in range(0, n):
-    res = f(res)
-  res
-
-
-def sum(n):
-  loop(n, ?f, 0)
-
-def f(res, i):
-    (res + i, i + 1)
-
-def sum(n):
-  res = 0
-  for i in range(1, n):
-    res += i
-  res
-
-
-
--}
-
--- >>> sumTo 3
--- 6
-
-sumTo :: Int -> Int
-sumTo 0 = 0
-sumTo n = n + sumTo(n-1)
-
-
-blah = (True, "ten", True)
-
--- >>> snd3 (10, 20, 30, 40)
--- "ten"
-
--- funkyList = "cat" : "dog" :  "orse" : []
-funkyList = ["cat", "dog", "orse" ]
-
-
--- >>> copy3 10
--- No instance for (Num String) arising from the literal `10'
--- In the first argument of `copy3', namely `10'
--- In the expression: copy3 10
--- In an equation for `it_a2udS': it_a2udS = copy3 10
-
-copy3 :: a -> [a]
-copy3 c =  [c,c,c]
-
--- >>> clone 3 "cat"
--- ["cat","cat","cat"]
-
--- >>> range 4 30
--- [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
-
--- >>> "cat" : ["dog", "mouse"]
--- ["cat","dog","mouse"]
 
 clone :: Int -> a -> [a]
 clone 0 _ = []
 clone n x = x : clone (n-1) x
 
 
--- range lo hi  ==> [lo, lo+1, lo+2,... hi]
-range :: Int -> Int -> [Int]
--- range 4 3 =      []
--- range 3 3 =     [3]
--- range 2 3 =   [2,3]
--- range 1 3 = 1:[2,3]
-range lo hi = if lo <= hi then lo : range (lo+1) hi else []
+bob x = x + 1
 
--- >>> ['c', 'a', 't'] == "cat"
--- 'a'
+-- >>> thdElt ["cat", "octo", "nouse"]
+-- "nouse"
+
+-- Prelude.undefined
+
+-- >>> grab 4 [0,1,2,3,4]
+-- /Users/rjhala/teaching/wi24/static/code/src/Lec_2_6_24.hs:(68,1)-(71,37): Non-exhaustive patterns in function grab
+
+-- >>> grab 1 [0,1,2,3,4,5,6,7]
+-- [0]
+
+-- >>> grab 2 [0,1,2,3,4,5,6,7]
+-- [0,1]
+
+-- >>> grab 3 [0,1,2,3,4,5,6,7]
+-- [0,1,2]
+
+
+
+
+
+
+
+firstElt :: [a] -> a
+firstElt l = case l of
+              h:_ -> h
+              _   -> undefined
+
+thdElt :: [a] -> a
+thdElt l = case l of
+            _: ( _ : ( h3 : _ ) ) -> h3
+            _ -> undefined
 
 firstElem :: [a] -> a
--- firstElem l = case l of
---                     x1 : _ -> x1
---                     []     -> undefined
-
--- >>> take 10 (foo 10)
--- [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109]
-
 firstElem (x1:_) = x1
 firstElem _      = undefined
 
-foo :: Int -> [Int]
-foo n = n : foo (n+1)
+
 
 secondElem :: [a] -> a
 secondElem (_:x2:_) = x2
 secondElem _        = undefined
 
-thirElem :: [a] -> a
-thirElem (_x1 : (_x2 : (x3 : _x4))) = x3
-thirElem _          = undefined
+thirdElem :: [a] -> a
+thirdElem (_x1 : (_x2 : (x3 : _x4))) = x3
+thirdElem _          = undefined
+
+rjList = ["dog", "cat"]
+
+
+grab :: Int -> [stuff] -> [stuff]
+grab 0 _               = []
+grab _ []              = []
+grab n (x:xs)          = x : (grab (n-1) xs)
+
+-- 4 + (9 * 10)
+
+-- grab 1 (x0:_)          = [x0]
+-- grab 2 (x0:x1:_)       = [x0, x1]
+-- grab 3 (x0:x1:x2:x3:_) = [x0, x1, x2]
+
+-- >>> grab 1 [0,1,2,3,4,5,6,7]
+-- [0]
+
+-- >>> grab 2 [0,1,2,3,4,5,6,7]
+-- [0,1]
+
+-- >>> grab 3 [0,1,2,3,4,5,6,7]
+-- [0,1,2]
+
+
+-- mys l = case l of
+--           [] -> 0
+--           x:xs -> 1 + mys xs
+
+length [] = 0
+length (x:xs) = 1 + length xs
+
+
+-- sumList (x:xs)     = x + sumList xs
+sumList []         = 0
+sumList (x1:xs) = x1 + (sumList xs)
+
+
 
 {-
-  case ("cat" : ("dog" : [])) of
-         x1   : x2 ->   x1 := "cat"
-                   x2 := ("dog" : [])
+mys (10:(20:(30:[])))
+==> 1 + mys (20:30:[])
+==> 1 + (1 + mys (30:[]))
+==> 1 + (1 + 1 + mys [])
+==> 1 + (1 + 1 + 0)
+==> 3
+-}
 
-  case ("cat" : ("dog" : [])) of
-         x1   : (x2    : x3) ->   x1 := "cat"
-                                  x2 := "dog"
-                                  x3 := []
+
+data Date = MkDate
+  { month :: Int    -- generates `day :: Date -> Int`
+  , day   :: Int
+  , year  :: Int
+  }
+
+-- data Bob = MkBob {
+--   day :: Int        -- day :: Bob -> Int
+--   }
+
+
+
+today :: Date
+today = MkDate 2 6 2024
+
+-- >>> getYear today
+-- 2024
+
+getYear :: Date -> Int
+getYear (MkDate _ _ y) = y
+
+getHour :: Time -> Int
+getHour (MkTime h _ _) = h
+
+date24 :: Int -> Int -> Date
+date24 month day = MkDate month day 2024
+
+date_2_6 :: Int -> Date
+date_2_6 =  MkDate 2 6
+
+-- \x -> f x  ==== f
+
+
+data Time = MkTime Int Int Int
+
+now :: Time
+now = MkTime 13 5 55
+
+data Student = MkStudent
+  { name :: String
+  , graduation :: Date
+  }
+
+
+
+
+-- quiz = nextDate now
+-- >>> nextDate now
+-- Couldn't match expected type `Date' with actual type `Time'
+-- In the first argument of `nextDate', namely `now'
+-- In the expression: nextDate now
+-- In an equation for `it_a73ke': it_a73ke = nextDate now
+
+-- (A) "undefined"
+-- (B) type mismatch
+-- (C) ???
+
+
+nextDate :: Date -> Date
+nextDate = undefined
+
+
+{-
+class Doc ...
 
 
 -}
 
+data Doc
+  = MkHeading Int String
+  | MkPlainText String
+  | MkList Bool [String]
 
+data Blah
+  = Int
+  | Bool
 
+blook :: [Blah]
+blook = [Int, Int, Bool, Bool]
+
+quiz99 :: Doc
+quiz99 = MkPlainText "hey there!"
 {-
-  firstElem ("cat", "dog")
+
+What is the type of `quiz`?
+
+(A) String
+(B) Doc
+(C) Type Error
+(D) Other
 
 -}
+doc :: [Doc]
+doc = [ MkHeading 1 "Notes from 130"                  -- Level 1 heading
+      , MkPlainText "There are two types of languages:"     -- Plain text
+      , MkList True [ "those people complain about"  -- Ordered list
+                    , "those no one uses"]
+      ]
 
-
-
-
-
-
-{-
-  clone 3 "cat"
-==> "cat" : clone 2 "cat"
-==> "cat" : ( "cat" : clone 1 "cat")
-==> "cat" : ( "cat" : ("cat" : clone 0 "cat") )
-==> "cat" : ( "cat" : ("cat" : []) )
-==> ["cat", "cat", "cat"]
-
--}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- fst4 :: (a1,a2,a3,a4) -> a1
-mango :: (Int, Int, Int) -> Int
-mango t = case t of
-            (x1,_,_) -> x1
-
--- fst4 t = case t of
---              (x1,_,_,_) -> x1
-
-
-fst3 :: (t1, t2, t3) -> t1
-fst3 t = case t of
-            (x1,_,_) -> x1
-
--- fst3 (x1,_,_) = x1
-
-snd3 :: (t1, t2, t3) -> t2
-snd3 t = case t of
-           (_,x2,_) -> x2
-
-
-{-
-bloh :: (Int-> Int, Int-> Int, Int -> Int -> Int)
-bloh = (\x -> x + 1,        -- :: Int -> Int
-        \y -> y - 1,        -- :: Int -> Int
-        myMax               -- :: Int -> Int -> Int
-        )
-
-
--}
-
-{-
-sumTo 3
-=> 3 + sumTo (3-1)
-=> 3 + sumTo 2
-=> 3 + (2 + sumTo (2-1))
-=> 3 + (2 + sumTo 1)
-=> 3 + (2 + (1 + sumTo (1-1)))
-=> 3 + (2 + (1 + sumTo 0))
-=> 3 + (2 + (1 + 0))
-=> 6
-
--}
--- sumTo n = if n <= 0 then 0 else n + sumTo (n-1)
-
--- 55
+docHtml :: Doc -> String
+docHtml d = case d of
+              MkHeading lvl s -> printf "<h%d>%s</h%d>" lvl s lvl
+              MkPlainText str -> printf "<p>%s</p>" str
+              MkList ord items -> undefined
