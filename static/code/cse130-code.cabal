@@ -19,6 +19,8 @@ source-repository head
 library
   other-modules:
       Lec_1_25_24
+      Lec_2_1_24
+      Lec_2_6_24
 
   hs-source-dirs:
       src
