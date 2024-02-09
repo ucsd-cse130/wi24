@@ -176,12 +176,6 @@ nextDate :: Date -> Date
 nextDate = undefined
 
 
-{-
-class Doc ...
-
-
--}
-
 data Doc
   = MkHeading Int String
   | MkPlainText String
