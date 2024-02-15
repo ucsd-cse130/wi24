@@ -11,7 +11,8 @@ The live-edited code for each lecture can be found [here][code].
 | 1/11       | The Lambda Calculus        | [html][lec1] [pdf][pdf1]  |
 | 1/25       | A crash course in Haskell  | [html][lec2] [pdf][pdf2]  |
 | 1/30       | **Midterm I**              |                           | 
-| 2/6        | Datatypes & Recursion      | [html][lec3]              |
+| 2/6        | Datatypes & Recursion      | [html][lec3] [pdf][pdf3]  |
+| 2/15       | Higher Order Functions     | [html][lec4] [pdf][pdf4]  |
 | 2/22       | **Midterm II**             |                           | 
 | 3/19       | **Final**                  |                           |
 
@@ -21,7 +22,6 @@ The live-edited code for each lecture can be found [here][code].
 | 1/20       | contd.                     |                           |
 | 2/1        | contd.                     | contd.                    |
 | 2/3        | contd.                     | contd.                    |
-| 2/8        | Higher Order Functions     | [html][lec4] [pdf][pdf4]  |
 | 2/10       | **midterm** 		  |                           |
 | 2/15       | contd. 		          | contd. 		      |
 | 2/17       | Environments & Closures    | [html][lec5] [pdf][pdf5]  |
