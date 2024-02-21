@@ -1,398 +1,271 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use list literal" #-}
 {-# HLINT ignore "Redundant bracket" #-}
+{-# HLINT ignore "Use map" #-}
+{-# HLINT ignore "Avoid lambda" #-}
+{-# HLINT ignore "Use foldr" #-}
+{-# HLINT ignore "Use concat" #-}
+{-# HLINT ignore "Use sum" #-}
+{-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE FlexibleInstances #-}
 module Lec_2_20_24 where
 
-import Prelude
+import Prelude hiding (map, filter, foldr, foldl)
+import Data.Char (toUpper, ord)
+import Data.List (intercalate)
 
-data Nat
-  = Zero
-  | Succ Nat
-  deriving (Eq, Show)
+-- >>> cat ["carne", "asada"]
+-- "carneasada"
 
-toInt :: Nat -> Int
-toInt Zero     = 0
-toInt (Succ n) = 1 + (toInt n)
+cat :: [String] -> String
+cat = foldr (++) ""
+-- cat []     = ""
+-- cat (x:xs) = x ++ cat xs
+
+total :: [Int] -> Int
+total = foldr (+) 0
+-- total []     = 0
+-- total (x:xs) = x + total xs
+
+foldr op b []     = b
+foldr op b (x:xs) = op x (foldr op b xs)
+{-
+foo []     = ""
+foo (x:xs) = x ++ foo xs
 
 
--- dec :: Nat -> Nat
-dec :: Nat -> Nat
-dec Zero = Zero
-dec (Succ n) = n
+foo []     = 0
+foo (x:xs) = x + foo xs
 
-{- (A) `n`
-   (B) something else
+foo op b []     = b
+foo op b (x:xs) = op x (foo xs)
+
 -}
 
-one :: Nat
-one = Succ Zero
 
-two :: Nat
-two = Succ one
 
-two' :: Nat
-two' = Succ (Succ Zero)
 
-fromInt :: Int -> Nat
-fromInt i = if i <= 0 then Zero else Succ (fromInt (i - 1))
+
+
+len :: [a] -> Int
+len []     = 0
+len (x:xs) = 1 + len xs
+
+
+
+
+
+
+
+-- >>> ord 'a'
+-- 97
+
+-- >>> ords ['a' .. 'z']
+-- [97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122]
+
+shout :: [Char] -> [Char]
+shout = map toUpper
+-- shout []     = []
+-- shout (x:xs) = toUpper x  : shout xs
+
+-- >>> quiz
+-- [3,5]
+
+quiz :: [Int]
+quiz = map (\(x, y) -> x + y) [(1,2), (2,3)]
+
+powersOfTwo :: [Int] -> [Int]
+powersOfTwo = map (\x -> 2 ^ x)
+-- powersOfTwo []     = []
+-- powersOfTwo (x:xs) = (2 ^ x) : powersOfTwo xs
+
+ords :: [Char] -> [Int]
+ords = map ord
+-- ords [] = []
+-- ords (x:xs) = ord x : ords xs
+
+map :: (a -> b) -> [a] -> [b]
+map _  []     = []
+map f (x:xs) = f x : map f xs
+
 
 {-
-foo 2
-==> Succ (foo 1)
-==> Succ (Succ (foo 0))
-==> Succ (Succ Zero)
--}
+foo []     = []
+foo (x:xs) = toUpper x  : foo xs
+foo toUpper
 
--- >>> two
--- Succ (Succ Zero)
+foo []     = []
+foo (x:xs) = (2 ^ x) : foo xs
 
--- >>> dec (Succ Zero) == Zero
--- True
+foo []     = []
+foo (x:xs) = ord x : foo xs
 
--- >>> dec (Succ (Succ Zero)) == (Succ Zero)
--- True
-
--- >>> dec (Succ (Succ (Succ Zero))) == Succ (Succ Zero)
--- True
-
--- >>> addHack (Succ Zero) (Succ (Succ Zero))
--- Succ (Succ (Succ Zero))
-
-add :: Nat -> Nat -> Nat
-add Zero     m = m
-add (Succ n) m = Succ (add n m)
--- add (Succ n)    m        = add n (Succ m)
-
-
-
-
-{-
-
-add (Succ (Succ Zero))  (Succ (Succ (Succ Zero)))
-
-(Succ (Succ (Succ (Succ (Succ Zero)))))
-
-
-
-
-
-
-add (Succ (Succ Zero))  (Succ (Succ (Succ Zero)))
-==>
-Succ (add (Succ Zero) (Succ (Succ (Succ Zero))))
-==>
-Succ (Succ (add Zero (Succ (Succ (Succ Zero))) ))
-==>
-Succ (Succ ( (Succ (Succ (Succ Zero))) ))
-
-
-
-add (Succ Zero) Zero
-==> (Succ Zero)
-
-
-add (Succ Zero) Zero
-==>
-add Zero (Succ Zero)
-==>
-Succ Zero
-
-
-
-
-add (Succ (Succ Zero))  (Succ (Succ (Succ Zero)))
-==>
-add (Succ Zero) (Succ(Succ (Succ (Succ Zero))))
-==>
-add Zero     (Succ(Succ(Succ (Succ (Succ Zero)))))
-==>
-Succ(Succ(Succ(Succ (Succ Zero))))
-
-
-
-
+foo op []     = []
+foo op (x:xs) = op x : foo op xs
 
 -}
 
 
--- add Zero        (Succ Zero)        = Succ Zero
--- add Zero        (Succ (Succ Zero)) = Succ (Succ Zero)
 
--- add (Succ Zero) Zero        = Succ Zero
--- add (Succ Zero) (Succ Zero) = Succ (Succ Zero)
-
-
-sub :: Nat -> Nat -> Nat
-sub Zero      _        = Zero
-sub n         Zero     = n
-sub (Succ n)  (Succ m) = sub n m
-
-
-addHack :: Nat -> Nat -> Nat
-addHack n m = fromInt ((toInt n) + (toInt m))
-
-data Op = Add | Sub | Mul
-
--- type Op = Char
-
-data Expr
-  = MkNum Double
-  | MkBin Op Expr Expr
-
-  -- | MkAdd Expr Expr
-  -- | MkSub Expr Expr
-  -- | MkMul Expr Expr
-
-  -- (A) | MkAdd Double Double
-  -- (B) | MkAdd Expr   Expr
-
--- >>> (1.1 + 2.2) * (3.3 - 4.4)
--- -3.630000000000002
-
--- >>> eval exp0
--- -3.630000000000002
-
-exp0 :: Expr
-exp0 = MkBin Mul
-        (MkBin Add (MkNum 1.1) (MkNum 2.2))
-        (MkBin Sub (MkNum 3.3) (MkNum 4.4))
-
-eval :: Expr -> Double
-eval (MkNum n) = n
-eval (MkBin Add e1 e2) =
-  let
-    v1 = eval e1
-    v2 = eval e2
-  in
-    v1 + v2
-
-eval (MkBin Sub e1 e2) =
-  let
-    v1 = eval e1
-    v2 = eval e2
-  in
-    v1 - v2
-
-
-eval (MkBin Mul e1 e2) =
-  let
-    v1 = eval e1
-    v2 = eval e2
-  in
-    v1 * v2
+-- >>> squares [1,2,3,4,5]
+-- [1,4,8,16,32]
 
 
 
-
-data List a = Nil | Cons a (List a) deriving (Show)
-
-list0 :: List String
-list0 = Cons "1" (Cons "2"  (Cons "3" Nil))
-
-
--- >>> append Nil (Cons 3 (Cons 4 (Cons 5 Nil)))
--- Cons 3 (Cons 4 (Cons 5 Nil))
-
--- >>> append (Cons 2 Nil) (Cons 3 (Cons 4 (Cons 5 Nil)))
--- Cons 2 (Cons 3 (Cons 4 (Cons 5 Nil)))
-
-{-
-  append (Cons 2 Nil) ys
-  ==>
-  Cons 2 (append Nil ys)
-  ==>
-  Cons 2 ys
-
-  append (Cons 1 (Cons 2 Nil)) ys
-  ==>
-  Cons 1 (append (Cons 2 Nil) ys)
-  ==>
-  Cons 1 (Cons 2 ys)
+fac :: Int -> Int
+fac n
+  | n <= 1    = 1
+  | otherwise = n * fac (n-1)
 
 
-  append (Cons x1 (Cons x2 (Cons x3 Nil)))  y_50_bill
-  ==>
-  Cons x1 (append ((Cons x2 (Cons x3 Nil)))  y_50_bill)
-  ==>
-  Cons x1 (Cons x2 (( append (((Cons x3 Nil)))  y_50_bill))
-  ==>
-  Cons x1 (Cons x2 (Cons x3 (append Nil  y_50_bill)))
-  ==>
-  Cons x1 (Cons x2 (Cons x3 y_50_bill))
+-- >>> facTR 5
+-- 120
 
--}
-
--- >>> rev (Cons 1 (Cons 2 (Cons 3 Nil)))
--- Cons 3 (Cons 2 (Cons 1 Nil))
-
-{-
-  rev (Cons 1 (Cons 2 (Cons 3 Nil)))
-==>
-  append (rev (Cons 2 (Cons 3 Nil))) (Cons 1 Nil)
-==>
-  append (append (rev (Cons 3 Nil)) (Cons 2 Nil)) (Cons 1 Nil)
-==>
-  append (append (append (rev Nil) (Cons 3 Nil)) (Cons 2 Nil)) (Cons 1 Nil)
-==>
-  append (append (append (Nil) (Cons 3 Nil)) (Cons 2 Nil)) (Cons 1 Nil)
-==>
-  ((Nil +++ (Cons 3 Nil)) +++ (Cons 2 Nil)) +++ (Cons 1 Nil)
-==>
-  Cons 3 (Cons 2 (Cons 1 Nil))
-
-
-
--}
-
--- >>> Nil +++ (Cons 4 Nil)
--- Cons 4 Nil
-
--- >>> ((Cons 4 Nil)) +++ (Cons 3 Nil)
--- Cons 4 (Cons 3 Nil)
-
-
--- Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 Nil))))
--- >>> append (Cons 1 (Cons 2 Nil)) (Cons 3 (Cons 4 (Cons 5 Nil)))
--- (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 Nil)))))
-
--- >>> (+) 2 30
--- 32
-
-(+++) :: List a -> List a -> List a
-(+++) Nil ys         = ys
-(+++) (Cons x xs) ys = Cons x ((+++) xs ys)
-
-
--- append xs ys   ========= xs +++ ys
-
-append :: List a -> List a -> List a
-append Nil         ys = ys
-append (Cons x xs) ys = Cons x (append xs ys)
-
-
-rev :: List a -> List a
-rev Nil         = Nil
-rev (Cons x xs) = append (rev xs) (Cons x Nil)
-
-revT l = loop Nil l
+facTR :: Int -> Int
+facTR n = loop 1 n
   where
-    loop res Nil         = res
-    loop res (Cons x xs) = loop (Cons x res) xs
-
+    loop acc k
+      | k <= 1    = acc
+      | otherwise = loop (acc * k) (k - 1)
 {-
-rev (Cons 1 (Cons 2 (Cons 3 Nil)))
+  fac 4
+  ==>
+  loop 1 4
+  ==>
+  loop (1*4) 3
+  ==>
+  loop (1*4*3) 2
+  ==>
+  loop (1*4*3*2) 1
+  ==>
+  24
 
-loop Nil (Cons 1 (Cons 2 (Cons 3 Nil)))
-loop (Cons 1 Nil) ((Cons 2 (Cons 3 Nil)))
-loop (Cons 2 (Cons 1 Nil) (((Cons 3 Nil)))
-loop (Cons 3 (Cons 2 (Cons 1 Nil) (((Nil)))
+  < fac 4 >
+  ==>
+  4 * < fac 3 >
+  ==>
+  4 * < 3 * < fac 2 > >
+  ==>
+  4 * < 3 * < 2 * <fac 1> > >
+  ==>
+  4 * < 3 * < 3 * <1> > >
 
 -}
+-- >>> mod 101 2
+-- 1
 
+-- >>> evens' [1,2]
+-- [2]
 
+evens :: [Int] -> [Int]
+evens []      = []
+evens (x:xs)  = let rest = evens xs
+                in if even x then x : rest else rest
 
--- >>> size list0
--- 3
+evens' :: [Int] -> [Int]
+evens' = filter even
 
 {-
-< size (Cons 1 (Cons 2 (Cons 3 ... (Cons 100000000000 Nil ))) >
-==>
-<1 + < size ((Cons 2 (Cons 3 ... (Cons 100000000000 Nil ))) > >
-
-<1 + < 1 + < (size (Cons 2 (Cons 3 ... (Cons 100000000000 Nil ))) > > >
-
-<1 + < 1 + < 1 + < 1 + ... <1 + 0> > > > >
-
-def size(l):
-  res = 0
-  while l != Nil:
-    res += 1
-    l = tail(l)
-  res
-
+  evens' [1,2]
+ ==>
+  filter even [1,2]
+ ==>
+  if even 1 then 1 : (filter even [2]) else (filter even [2])
+ ==>
+  filter even (2:[])
+ ==>
+  if even 2 then 2 : (filter even []) else (filter even [])
+ ==>
+  2 : (filter even [])
+ ==>
+  2 : ([])
+ =>
+  [2]
 -}
 
+-- >>> fourLetterWords ["you", "must", "eat", "a", "taco"]
+-- ["must", "taco"]
 
-size :: List a -> Int
-size Nil = 0
-size (Cons _ t) = 1 + size t
+fourLetterWords :: [String] -> [String]
+fourLetterWords []     = []
+fourLetterWords (x:xs) = let rest = fourLetterWords xs
+                         in if length x == 4 then x : rest else rest
 
+fourLetterWords' :: [String] -> [String]
+fourLetterWords' = filter fourLetters
 
+-- foo x == bar x
+fourLetters :: String -> Bool
+fourLetters x = length x == 4
 
-
-data Tree = Leaf | Node Int Tree Tree
-  deriving (Show)
-
-depth :: Tree -> Int
-depth Leaf                = 0
-depth (Node _ left right) = 1 + max (depth left) (depth right)
-
-tree0 :: Tree
-tree0 = Node 1
-          (Node 2
-            (Node 3
-              Leaf
-              Leaf)
-            Leaf)
-          (Node 4
-            Leaf
-            Leaf)
-
--- >>> sumTo 10
--- 55
-
-sumTo' :: Int -> Int
-sumTo' 0 = 0
-sumTo' n = n + sumTo' (n-1)
-
-sumTo :: Int -> Int
-sumTo m = loop m 0
-  where
-   loop n res
-     | n <= 0    = res
-     | otherwise = loop (n - 1) (res + n)
-
-
-
+filter :: (a -> Bool) -> [a] -> [a]
+filter _    []     = []
+filter cond (x:xs) = let rest = filter cond xs
+                     in if cond x then x : rest else rest
 {-
 
-def sumTo(n):
-  res = 0
-  while n > 0:
-    res = r + n
-    n   = n - 1
-  res
-
-  sumTo 5
-  ==>
-  <5 + sumTo 4>
-  ==>
-  <5 + <4 + sumTo 3>>
-  ==>
-  <5 + <4 + <3 + sumTo 2>>>
-  ==>
-  <5 + <4 + <3 + <2 + sumTo 1>>>>
-  ==>
-  <5 + <4 + <3 + <2 + <1 + sumTo 0>>>>>
+foo []      = []
+foo (x:xs)  = let rest = foo xs
+              in if even x       then x : rest else rest
 
 
-  sumTo 5
-  ==>
-  loop 5 0
-  ==>
-  loop 4 5
-  ==>
-  loop 3 9
-  ==>
-  loop 2 12
-  ==>
-  loop 1 14
-  ==>
-  loop 0 15
-  ==>
-  15
+
+foo []     = []
+foo (x:xs) = let rest = foo xs
+             in if fourLetters x then x : rest else rest
+
+
 
 
 
 
 -}
+
+
+----
+
+data Day = Mon | Tue | Wed | Thu | Fri | Sat | Sun deriving (Show)
+
+class Tot t where
+  adder :: Integer -> t
+
+instance Tot Integer where
+  adder x = x
+
+instance (Integral a, Tot r) => Tot (a -> r) where
+  adder acc x = adder (acc + toInteger x)
+
+tot :: (Tot a) => a
+tot = adder 0
+
+-- >>> [tot 0, tot 0 1, tot 0 1 2 3 4 5 6 7 9 10]
+
+class Printer t where
+  printer :: [String] -> t
+
+instance Printer String  where
+  printer = intercalate ", "
+
+instance (Show a, Printer r) => Printer (a -> r) where
+    printer acc x = printer (acc ++ [show x])
+
+funny :: (Printer t) => t
+funny = printer []
+
+-- >>> bob
+-- ["1","1, 2","1, 2, \"cat\"","1, 2.4, [\"dog\",\"hours\"]","Sat, 1, 2.4, [Sun,Mon,Tue]"]
+
+bob :: [String]
+bob = [funny 1,
+       funny 1 2,
+       funny 1 2 "cat",
+       funny 1 2.4 ["dog", "hours"],
+       funny Sat 1 2.4 [Sun, Mon, Tue]
+       ]
+
+
+
+-- main :: IO ()
+-- main = do printAll 5 "Mary" "had" "a" "little" "lamb" 4.2 -- note: the arguments can even be different types
+--           printAll 4 3 5
