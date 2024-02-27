@@ -14,6 +14,7 @@ The live-edited code for each lecture can be found [here][code].
 | 2/6        | Datatypes & Recursion      | [html][lec3] [pdf][pdf3]  |
 | 2/15       | Higher Order Functions     | [html][lec4] [pdf][pdf4]  |
 | 2/22       | **Midterm II**             |                           | 
+| 2/27       | Environments & Closures    | [html][lec5]              |
 | 3/19       | **Final**                  |                           |
 
 
@@ -24,7 +25,6 @@ The live-edited code for each lecture can be found [here][code].
 | 2/3        | contd.                     | contd.                    |
 | 2/10       | **midterm** 		  |                           |
 | 2/15       | contd. 		          | contd. 		      |
-| 2/17       | Environments & Closures    | [html][lec5] [pdf][pdf5]  |
 | 2/22       | contd.                     | contd.                    |
 | 2/24       | Lexing and Parsing         | [html][lec6] [pdf][pdf6]  |
 | 3/1        | Overloading & Type Classes | [html][lec7] [pdf]        |
@@ -67,7 +67,7 @@ The live-edited code for each lecture can be found [here][code].
 [pdf6]: /static/raw/06-parsing.pdf
 [pdf8]: /static/raw/08-monads.pdf
 
-[code]: https://github.com/ucsd-cse130/wi21/tree/master/static/code/src
+[code]: https://github.com/ucsd-cse130/wi24/tree/master/static/code/src
 [arith]: https://github.com/ucsd-cse130/wi21/tree/master/static/arith
 
 [lc-1-12]: /static/raw/lec_1_12_21.lc

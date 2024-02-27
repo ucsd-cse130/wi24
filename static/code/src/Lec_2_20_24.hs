@@ -7,7 +7,6 @@
 {-# HLINT ignore "Use concat" #-}
 {-# HLINT ignore "Use sum" #-}
 {-# LANGUAGE InstanceSigs #-}
-{-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
 module Lec_2_20_24 where
 
