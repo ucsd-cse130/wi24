@@ -21,9 +21,9 @@ but no more than *four late days* per assignment.
 | [HW #1](https://classroom.github.com/a/HxgZyrDP) | Introduction to Haskell | Wed 2/7                    |
 | [HW #2](https://classroom.github.com/a/QN5MJP8I) | Data types              | Fri 2/16                   |
 | [HW #3](https://classroom.github.com/a/MwGq0b-E) | Higher-order Functions  | Fri 3/1                    |
+| [HW #4](https://classroom.github.com/a/Nt-8s65U) | Interpreters            | Fri 3/15                   |
 
 <!--
-| [HW #4]                                          | Interpreters            | Mon 3/13                   |
 | [HW #5]                                          | Classes                 | Sun 3/22                   |
 -->
 

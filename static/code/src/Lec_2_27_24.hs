@@ -23,6 +23,7 @@ data Expr
   = ENum Int
   | EBin Op Expr Expr
   | EVar Id
+  | ELet Id Expr Expr
   deriving (Show)
 
 data Value
@@ -59,18 +60,70 @@ exp1 =  (EBin Add (EVar "x") (ENum 20))
 env0 :: Env
 env0 = [ ("x", VInt 10), ("y", VInt 20) ]
 
--- >>> eval env0 exp1
+env1 :: Env
+env1 = [ ("z", VInt 92), ("x", VInt 9), ("y", VInt 20) ]
+
+            -- (x + z) * y
+-- >>> eval env1 (EBin Mul (EBin Add (EVar "x") (EVar "z")) (EVar "y"))
+-- VInt 2020
+
+
+-- >>> evalOp Add VNull undefined
+-- VNull
+
+expQuiz :: Expr
+expQuiz =                               -- []
+  ELet "x" (ENum 10)
+                                        -- [x := 10]
+    (EBin Add
+                                        -- [x := 10]
+      (ELet "y" (EBin Mul (EVar "x") (EVar "x"))
+                                        --      [y := 100, x := 10]
+        (EBin Mul (EVar "x") (EVar "y"))
+      )
+                                        -- [x := 10]
+      (EVar "x")
+    )
+
+-- >>> eval [] expQuiz
+-- VInt 1010
+
+expr10 :: Expr
+expr10 = ELet "xanadu" (ENum 999)
+         (ELet "x" (ENum 1)
+          (EBin Add
+            (EVar "x")
+            (EVar "xanadu")))
+
+exp11 = let xanadu = 99
+        in
+          let x = 1
+          in
+            x + xanadu
+
+-- >>> eval [] expr10
+-- VNull
+
+-- >>> eval [("xanadu", VInt 10000)] expr10
+--  VInt 10001
+
 -- VInt 30
 eval :: Env -> Expr -> Value
 eval _   (ENum n)        = VInt n
-eval env (EBin op e1 e2) = evalOp op (eval env e1) (eval env e2)
+eval env (EBin op e1 e2) = evalOp op v1 v2
+  where
+    v1 = eval env e1
+    v2 = eval env e2
 eval env (EVar x)        = lookupEnv x env
+eval env (ELet x e1 e2)  = eval env' e2
+  where
+    v1   = eval env e1
+    env' = (x, v1) : env
+
 
 lookupEnv :: Id -> Env -> Value
 lookupEnv x ((key, val) : rest) = if x == key then val else lookupEnv x rest
 lookupEnv x []                  = VNull
-
-
 
 evalOp :: Op -> Value -> Value -> Value
 evalOp Add (VInt n1) (VInt n2) = VInt (n1 + n2)
@@ -80,7 +133,15 @@ evalOp Div (VInt n1) (VInt n2) = if n2 == 0 then VNull else VInt (n1 `div` n2)
 evalOp _    _        _         = VNull
 
 {-
-evalOp :: Op -> Value -> Value ->
+
+let x = 999
+ in           -- [x=999]
+  let x = 0
+  in          -- (x := 0) : x := 999 : []
+              -- x := 999 : (x:=0) : []
+    x + 1
+
+
 
 -}
 
