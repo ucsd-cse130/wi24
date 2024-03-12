@@ -1,8 +1,9 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use newtype instead of data" #-}
 module Language.Arith.Types where
 
 import Control.Exception
 import Data.Typeable
-import qualified Data.Maybe as Mb
 
 data Error = Error {errMsg :: String}
              deriving (Show, Typeable)
@@ -24,6 +25,19 @@ type Env = [(Id, Int)]
 
 type Value = Int
 
+-- $alpha stuff* 
+
+-- re1 re2 
+
+
+-- (x + y) * 2
+expxy2 :: Aexpr
+expxy2 = AMul (APlus (AVar "x") (AVar "y")) (AConst 2)
+
+-- >>> eval [ ("y", 20)] expxy2
+-- Error {errMsg = "Unbound variable x"}
+
+
 eval :: Env -> Aexpr -> Value
 eval _   (AConst i)     = i
 eval env (AVar   x)     = case lookup x env of
@@ -35,7 +49,7 @@ eval env (AMul   e1 e2) = eval env e1 * eval env e2
 eval env (ADiv   e1 e2) = eval env e1 `div` eval env e2
 
 myLookup :: Id -> [(Id, Int)] -> Maybe Int
-myLookup x []           = Nothing
+myLookup _ []           = Nothing
 myLookup x ((k,v):rest)
   | x == k              = Just v
   | otherwise           = myLookup x rest

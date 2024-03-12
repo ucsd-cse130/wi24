@@ -1172,6 +1172,19 @@ to handle variables i.e. the <code class="sourceCode haskell"><span class="dt">
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; eval [] exLam1</span></span>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- 11</span></span></code></pre></div>
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br></p>
 <h2 id="quiz-14">QUIZ</h2>
 <p>What should the following evaluate to?</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> c <span class="ot">=</span> <span class="dv">1</span></span>
@@ -1312,14 +1325,15 @@ happened Tuesday.
 <p><strong>At call:</strong>
 Use the <em>frozen</em> environment to evaluate the <em>body</em></p>
 <p>Ensures that <code class="sourceCode haskell">inc <span class="dv">10</span></code> <em>always</em> evaluates to the <em>same</em> result!</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>                          <span class="co">-- []</span></span>
+<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>                     <span class="co">-- []</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> c <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="kw">in</span>                        <span class="co">-- [&quot;c&quot; := 1]</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">let</span> inc <span class="ot">=</span> \x <span class="ot">-&gt;</span> x <span class="op">+</span> c</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">in</span>                     <span class="co">-- [&quot;inc&quot; := &lt;frozenv, x, x+c&gt;, c := 1]  &lt;&lt;&lt; frozenv = [&quot;c&quot; := 1]</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> c <span class="ot">=</span> <span class="dv">100</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">in</span>                  <span class="co">-- [&quot;c&quot; := 100, &quot;inc&quot; := &lt;frozenv, x, x+c&gt;, &quot;c&quot; := 1]</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>        inc <span class="dv">10</span></span></code></pre></div>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="kw">in</span>                   <span class="co">-- [&quot;c&quot; := 1]</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a> <span class="kw">let</span> inc <span class="ot">=</span> \x <span class="ot">-&gt;</span> x <span class="op">+</span> c</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a> <span class="kw">in</span>                  <span class="co">-- [&quot;inc&quot; := &lt;frozenv, x, x+c&gt;, c := 1]  </span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                     <span class="co">-- where frozenv = [&quot;c&quot; := 1]</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">let</span> c <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>   <span class="kw">in</span>                <span class="co">-- [&quot;c&quot; := 100, &quot;inc&quot; := &lt;frozenv, x, x+c&gt;, &quot;c&quot; := 1]</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>     inc <span class="dv">10</span></span></code></pre></div>
 <p>Now we evaluate</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>eval env (inc <span class="dv">10</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>

@@ -4,6 +4,9 @@ date: 2018-05-16
 headerImg: books.jpg
 ---
 
+
+**The code for this lecture can be found** [here](https://github.com/ucsd-cse130/wi24/tree/main/static/code)
+
 ## Plan for this week
 
 

@@ -1287,6 +1287,20 @@ exLam1 = ELet "incr" (ELam "x" (EBin Add (EVar "x") (ENum 1)))
 -- 11
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## QUIZ
 
 What should the following evaluate to?
@@ -1481,14 +1495,15 @@ Use the _frozen_ environment to evaluate the _body_
 Ensures that `inc 10` _always_ evaluates to the _same_ result!
 
 ```haskell
-                          -- []
+                     -- []
 let c = 1
-in                        -- ["c" := 1]
-   let inc = \x -> x + c
-   in                     -- ["inc" := <frozenv, x, x+c>, c := 1]  <<< frozenv = ["c" := 1]
-      let c = 100
-      in                  -- ["c" := 100, "inc" := <frozenv, x, x+c>, "c" := 1]
-        inc 10
+in                   -- ["c" := 1]
+ let inc = \x -> x + c
+ in                  -- ["inc" := <frozenv, x, x+c>, c := 1]  
+                     -- where frozenv = ["c" := 1]
+   let c = 100
+   in                -- ["c" := 100, "inc" := <frozenv, x, x+c>, "c" := 1]
+     inc 10
 ```
 
 Now we evaluate

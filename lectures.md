@@ -14,7 +14,10 @@ The live-edited code for each lecture can be found [here][code].
 | 2/6        | Datatypes & Recursion      | [html][lec3] [pdf][pdf3]  |
 | 2/15       | Higher Order Functions     | [html][lec4] [pdf][pdf4]  |
 | 2/22       | **Midterm II**             |                           | 
-| 2/27       | Environments & Closures    | [html][lec5]              |
+| 2/27       | Environments & Closures    | [html][lec5] [pdf][pdf5]  |
+| 3/5        | Lexing and Parsing         | [html][lec6]              |
+| 3/12       | Type Classes & Functors    | [html][lec7] [html][lec8] |
+| 3/14       | Monads & Hello, world!     | [html][lec9]              |
 | 3/19       | **Final**                  |                           |
 
 

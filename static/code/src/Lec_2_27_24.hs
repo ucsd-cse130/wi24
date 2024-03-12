@@ -6,29 +6,111 @@
 {-# HLINT ignore "Use foldr" #-}
 {-# HLINT ignore "Use concat" #-}
 {-# HLINT ignore "Use sum" #-}
-{-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# HLINT ignore "Eta reduce" #-}
 module Lec_2_27_24 where
 
 import Prelude hiding (map, filter, foldr, foldl)
-import Data.Char (toUpper, ord)
-import Data.List (intercalate)
-
 
 type Id = String
 
 data Op = Add | Sub | Mul | Div deriving (Show)
 data Expr
   = ENum Int
-  | EBin Op Expr Expr
+  | EBin Op   Expr Expr
   | EVar Id
-  | ELet Id Expr Expr
+  | ELet Id   Expr Expr
+  | ELam Id   Expr
+  | EApp Expr Expr
   deriving (Show)
+
+-- >>> eval [] incTest
+-- VInt 11
+
+-- >>> eval [] incTestC
+-- VInt 11
+
+-- >>> eval [] incTestCandC
+-- VInt 11
+
+-- >>> eval [] incTestCandCandC
+-- VInt 111
+
+
+{-
+  let incr = \x -> x + 1
+  in
+    -- ENV = [("incr",VFun "x" (EBin Add (EVar "x") (ENum 1)))],
+    -- EApp (EVar "incr") (ENum 10))
+    incr 10
+
+-}
+
+-- >>> eval [] expAdd
+-- VInt 1130
+
+{-
+                            []
+let add = \x -> (\y -> x + y)
+                            [add := <"x", (\y -> x + y), []> ] == env0
+in
+  let add10 = add 10        [add10 := <"y", x+y, (x := 10: env0) > ]
+  in
+    let add20 = add 20
+                            [add20 := <"y", x+y, [x := 20, add10 := <"y", x+y, [x := 10]] > ]
+    in
+      (add10 100) + (add20 1000)
+-}
+
+expAdd :: Expr
+expAdd =
+  ELet "add" (ELam "x" (ELam "y" (EBin Add (EVar "x") (EVar "y"))))
+    (ELet "add10" (EApp (EVar "add") (ENum 10))
+      (ELet "add20" (EApp (EVar "add") (ENum 20))
+        (EBin Add (EApp (EVar "add10") (ENum 100)) (EApp (EVar "add20") (ENum 1000)))))
+
+
+
+incTest :: Expr
+incTest =
+  ELet "incr" (ELam "x" (EBin Add (EVar "x") (ENum 1)))
+    (EApp (EVar "incr" ) (ENum 10 ))
+
+incTestC :: Expr
+incTestC =
+  ELet "c" (ENum 1)
+    (ELet "incr" (ELam "x" (EBin Add (EVar "x") (EVar "c")))
+      (EApp (EVar "incr" ) (ENum 10 )))
+
+incTestCandC :: Expr
+incTestCandC =
+  ELet "c" (ENum 1)
+    (ELet "incr" (ELam "x" (EBin Add (EVar "x") (EVar "c")))
+      (ELet "c" (ENum 100)
+        (EApp (EVar "incr" ) (ENum 10 ))))
+
+
+incTestCandCandC :: Expr
+incTestCandCandC =
+  ELet "c" (ENum 1)
+    (ELet "incr" (ELam "x" (EBin Add (EVar "x") (EVar "c")))
+      (ELet "c" (ENum 100)
+        (EBin
+            Add
+            (EApp (EVar "incr" ) (ENum 10 ))
+            (EVar "c")
+        )
+      )
+    )
+
+
+
+
 
 data Value
   = VNull
-  | VInt Int
+  | VInt  Int
+  | VFun  Id Expr Env
   deriving (Show)
 
 type Env = [(Id, Value)]
@@ -101,12 +183,18 @@ exp11 = let xanadu = 99
           in
             x + xanadu
 
--- >>> eval [] expr10
--- VNull
+-- >>> eval [] (EApp (ENum 10) (ENum 0))
 
 -- >>> eval [("xanadu", VInt 10000)] expr10
 --  VInt 10001
 
+-- >>> blah
+-- /Users/rjhala/teaching/wi24/static/code/src/Lec_2_27_24.hs:131:12-27: Non-exhaustive patterns in x1 : x2 : x3 : _
+
+blah :: Integer
+blah = let x1:x2:x3:_ = [1]
+       in
+          x2
 -- VInt 30
 eval :: Env -> Expr -> Value
 eval _   (ENum n)        = VInt n
@@ -117,8 +205,19 @@ eval env (EBin op e1 e2) = evalOp op v1 v2
 eval env (EVar x)        = lookupEnv x env
 eval env (ELet x e1 e2)  = eval env' e2
   where
-    v1   = eval env e1
     env' = (x, v1) : env
+    v1   = eval env e1
+eval env (ELam x e) = VFun x e env
+
+eval env (EApp e1 e2) = case eval env e1 of
+  VFun x body frozEnv -> eval ((x, eval env e2) : frozEnv) body
+  _           -> VNull
+
+--   error ("wtf: " ++ show (env, e))
+
+
+
+
 
 
 lookupEnv :: Id -> Env -> Value
