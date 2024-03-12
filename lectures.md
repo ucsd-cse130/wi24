@@ -12,13 +12,13 @@ The live-edited code for each lecture can be found [here][code].
 | 1/25       | A crash course in Haskell  | [html][lec2] [pdf][pdf2]  |
 | 1/30       | **Midterm I**              |                           | 
 | 2/6        | Datatypes & Recursion      | [html][lec3] [pdf][pdf3]  |
-| 2/15       | Higher Order Functions     | [html][lec4] [pdf][pdf4]  |
-| 2/22       | **Midterm II**             |                           | 
-| 2/27       | Environments & Closures    | [html][lec5] [pdf][pdf5]  |
-| 3/5        | Lexing and Parsing         | [html][lec6]              |
-| 3/12       | Type Classes & Functors    | [html][lec7] [html][lec8] |
-| 3/14       | Monads & Hello, world!     | [html][lec9]              |
-| 3/19       | **Final**                  |                           |
+| 2/15       | Higher Order Functions     | [html][lec4] [pdf][pdf4]   |
+| 2/22       | **Midterm II**             |                            | 
+| 2/27       | Environments & Closures    | [html][lec5] [pdf][pdf5]   |
+| 3/5        | Lexing and Parsing         | [html][lec6] [code][arith] |
+| 3/12       | Type Classes & Functors    | [html][lec7] [html][lec8]  |
+| 3/14       | Monads & Hello, world!     | [html][lec9]               |
+| 3/19       | **Final**                  |                            |
 
 
 <!--
@@ -71,7 +71,7 @@ The live-edited code for each lecture can be found [here][code].
 [pdf8]: /static/raw/08-monads.pdf
 
 [code]: https://github.com/ucsd-cse130/wi24/tree/master/static/code/src
-[arith]: https://github.com/ucsd-cse130/wi21/tree/master/static/arith
+[arith]: https://github.com/ucsd-cse130/wi24/tree/main/static/arith
 
 [lc-1-12]: /static/raw/lec_1_12_21.lc
 
