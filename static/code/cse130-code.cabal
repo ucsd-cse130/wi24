@@ -26,6 +26,7 @@ library
       Lec_2_20_24
       Lec_2_27_24
       Lec_3_12_24
+      Lec_3_14_24
 
   hs-source-dirs:
       src

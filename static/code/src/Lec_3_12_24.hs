@@ -1,7 +1,9 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use map" #-}
 {-# LANGUAGE DeriveFunctor #-}
-module Lec_3_14_24 where
+module Lec_2_17_22 where
+import Test.QuickCheck.Property (mapTotalResult)
+import Control.Exception (throw)
 
 -- >>> foo "10" "20"
 -- True
@@ -160,11 +162,7 @@ data Expr
 -- >>> eval ((Add (Number 10) (Number (-10))))
 -- Val 0
 
--- >>> eval expr0
--- Err (Add (Number 10) (Number (-10)))
-
-expr0 :: Expr
-expr0 = Div (Number 100) (Add (Number 10) (Number (-10)))
+expr0 = (Div (Number 100) (Add (Number 10) (Number (-10))))
 
 -- >>> eval expr0
 -- Err (Add (Number 10) (Number (-10)))
@@ -175,104 +173,12 @@ data Result e v
   | Val v
   deriving (Show)
 
-data List a = Nil | Cons a (List a) deriving (Show)
-
-(+++) :: List a -> List a -> List a
-(+++) Nil ys = ys
-(+++) (Cons x xs) ys = Cons x (xs +++ ys)
-
-instance Functor List where
-    fmap f Nil = Nil
-    fmap f (Cons x xs) = Cons (f x) (fmap f xs)
-
-instance Applicative List where
-
-
-instance Monad List where
-    -- (>>=) :: List a -> (a -> List b) -> List b
-    (>>=) Nil _         = Nil
-    (>>=) (Cons x xs) f = f x +++ (xs >>= f)
-    return x = Cons x Nil
-
-
-thursday :: Monad m => m a -> m b -> m (a, b)
-thursday thing1 thing2 = do
-    x1 <- thing1
-    x2 <- thing2
-    return (x1, x2)
-
-
-funky f xs = do
-    x <- xs
-    return (f x)
-
-filt f xs = do
-    x <- xs
-    if f x then return x else []
-
--- >>> filt (>= 3) [1,2,3,4]
-
-
--- >>> funky (+100) [1,2,3,4]
--- [101,102,103,104]
-
-
-
-
-
-thursday' thing1 thing2 =
-    thing1 >>= (\x1 ->
-      thing2 >>= (\x2 ->
-        return (x1, x2)
-      )
-    )
-
--- >>> th
 {-
-
-[1, 2] >>= (\x1 ->
-  ["cat", "dog"] >>= (\x2 ->
-        return (x1, x2)
-      )
-    )
-
--}
-
-
-
--- >>> thursday [1,2,3] ["cat", "dog"]
--- [(1,"cat"),(1,"dog"),(2,"cat"),(2,"dog"),(3,"cat"),(3,"dog")]
-
--- >>> thursday (Val 10) (Val 20)
--- Val (10,20)
-
-{-
-
-(A) Err ()
-(B) (10, 20)
-(C) (Val 10, Val 20)
-(D) Val (10, 20)
-(E) Type Error
-
--}
-
-
-
-
-
-
-
-
-{-
-
 class Monad m where
   (>>=) :: m a -> (a -> m b) -> m b
   return :: a -> m a
 
 -}
-
-instance Functor (Result e) where
-instance Applicative (Result e) where
 
 instance Monad (Result e) where
     (>>=) = pat
@@ -297,8 +203,7 @@ ret = Val
 -}
 
 
-eval :: Expr -> Result Expr Int
-eval (Number n)  = return n
+eval (Number n)  = ret n
 eval (Add e1 e2) = do v1 <- eval e1
                       v2 <- eval e2
                       return (v1 + v2)
@@ -306,3 +211,127 @@ eval (Add e1 e2) = do v1 <- eval e1
 eval (Div e1 e2) = do v1 <- eval e1
                       v2 <- eval e2
                       if v2 == 0 then Err e2 else return (v1 `div` v2)
+
+
+
+
+
+
+
+data List a = Nil | Cons a (List a) deriving (Show)
+
+append :: List a -> List a -> List a
+append Nil ys = ys
+append (Cons x xs) ys = Cons x (append xs ys)
+
+
+
+instance Monad List where
+    -- return :: a -> List a
+    return x = Cons x Nil
+
+    -- (>>=) :: List a -> (a -> List b) -> List b
+    (>>=) Nil _         = Nil
+    (>>=) (Cons x xs) f = append (f x) (xs >>= f)
+
+-- >>> boo l1 l2
+-- Cons (1,"a") (Cons (1,"b") (Cons (1,"c") (Cons (2,"a") (Cons (2,"b") (Cons (2,"c") (Cons (3,"a") (Cons (3,"b") (Cons (3,"c") Nil))))))))
+
+-- >>> boo (Val 10) (Err "yikes")
+-- Err "yikes"
+
+l1 :: List Integer
+l1 = Cons 1 (Cons 2 (Cons 3 Nil))
+l2 :: List String
+l2 = Cons "a" (Cons "b" (Cons "c" Nil))
+
+boo thing1 thing2 = do
+    x <- thing1
+    y <- thing2
+    return (x, y)
+
+
+moo :: List Int -> List Int -> List Int
+moo thing1 thing2 = do
+    x1 <- thing1
+    x2 <- thing2
+    _  <- return (x1 - x2)
+    Cons (x1 + x2) Nil
+--
+
+-- class Monad m where
+--   (>>=) :: m a -> (a -> m b) -> m b
+--   return :: a -> m a
+
+
+instance Functor List where
+instance Applicative List where
+
+
+
+instance Functor (Result e) where
+instance Applicative (Result e) where
+
+
+silly x = silly (x+1)
+less x = x : less (x + 1)
+
+-- >>> take 5 (less 100)
+-- [100,101,102,103,104]
+
+
+-- >>> bob
+-- 50
+
+bob :: Integer
+bob = let a = silly 10
+          b = 20
+          c = 30
+      in
+          if b + c > 10 then b + c else a
+
+
+
+{-
+
+e1 >>= (\x -> e2)
+
+do x <- e1
+   e2
+
+
+
+do  x1 <- e1
+    x2 <- e2
+    x3 <- e3
+    STUFF
+
+e1 >>= (\x1 ->
+  e2 >>= (\x2 ->
+    e3 >>= (\x3 ->
+      STUFF
+)
+)
+)
+
+
+
+
+foldl' f !acc [] = acc
+foldl' f !acc (x:xs) = foldl f (f acc x) xs
+
+
+
+foldl (+) 0 [x1,x2,x3,x4]
+==>
+foldl (+) (\(). 0 + x1) [x2,x3,x4]
+==>
+foldl (+) (\(). (\().(0 + x1)() + x2) [x3,x4]
+==>
+foldl (+) (((0 + x1)+x2+x3) [x4]
+==>
+foldl (+) ((((0 + x1)+x2+x3)+x4) []
+==>
+((((0 + x1)+x2+x3)+x4)
+
+-}
